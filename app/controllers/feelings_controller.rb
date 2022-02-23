@@ -1,4 +1,6 @@
 class FeelingsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+
   def index
     @feelings = Feeling.all
   end
@@ -14,18 +16,27 @@ class FeelingsController < ApplicationController
   def create
     @feeling = Feeling.new(feeling_params)
     @feeling.user_id = current_user.id
-    @feeling.save
-    redirect_to feeling_path(@feeling)
+    if @feeling.save
+      redirect_to feeling_path(@feeling),  notice: '投稿に成功しました。'
+    else
+      render :new
+    end
   end
 
   def edit
     @feeling = Feeling.find(params[:id])
+    if @feeling.user != current_user
+      redirect_to feelings_path, alert: '不正なアクセスです。'
+    end
   end
 
   def update
     @feeling = Feeling.find(params[:id])
-    @feeling.update(feeling_params)
-    redirect_to feeling_path(@feeling)
+    if @feeling.update(feeling_params)
+      redirect_to feeling_path(@feeling), notice: '更新に成功しました。'
+    else
+      render :edit
+    end
   end
 
   def destroy
