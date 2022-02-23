@@ -28,6 +28,12 @@ class FeelingsController < ApplicationController
     redirect_to feeling_path(@feeling)
   end
 
+  def destroy
+    feeling = Feeling.find(params[:id])
+    feeling.destroy
+    redirect_to feelings_path
+  end
+
   private
   def feeling_params
     params.require(:feeling).permit(:title, :body, :image)
