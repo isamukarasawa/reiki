@@ -48,4 +48,6 @@
   </div>
 </section>
 
-レイキの感想は後ほど
+<% @user.feelings.each do |feeling| %>
+  <%= attachment_image_tag feeling, :image %>
+<% end %>
