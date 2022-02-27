@@ -11,13 +11,14 @@
 ### Association
 - has_many :feelings
 
-## items_テーブル
+## feelings_テーブル
 
 | Column               | Type        | Options                        |
 | -------------------- | ----------- | ------------------------------ |
-| user_id              | string      | null: false                    |
-| type                 | text        | null: false                    |
-| feeling              | integer     | null: false                    |
+| user_id              | integer     | null: false                    |
+| body                 | text        | null: false                    |
+| title                | string      | null: false                    |
+| image_id             | string      | null: false                    |
 
 ### Association
 - belongs_to :user
